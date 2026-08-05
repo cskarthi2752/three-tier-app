@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-app
+
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+
+    spec:
+      imagePullSecrets:
+        - name: ecr-secret
+
+      containers:
+        - name: frontend-app
+          image: 274193347344.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:latest
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+
+spec:
+  type: LoadBalancer
+
+  selector:
+    app: frontend-app
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+
