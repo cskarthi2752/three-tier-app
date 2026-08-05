@@ -28,12 +28,9 @@ pipeline {
         }
 
         stage('Test') {
-    steps {
-        sh 'curl http://localhost/api'
-    }
-}
+            steps {
+                sh 'curl http://localhost/api'
             }
         }
     }
-}:wq
-
+}
