@@ -14,12 +14,19 @@ const db = mysql.createConnection({
     database: "appdb"
 });
 
-db.connect();
+db.connect((err)=>{
+    if(err){
+        console.log("Database not ready:", err.message);
+    }
+    else{
+        console.log("MySQL Connected");
+    }
+});
 
-app.get("/api", (req,res)=>{
-    res.json({message:"Backend Running"});
+app.get("/api",(req,res)=>{
+    res.send("Backend API Working");
 });
 
 app.listen(5000,()=>{
-    console.log("Server Running");
+    console.log("Backend running on port 5000");
 });
